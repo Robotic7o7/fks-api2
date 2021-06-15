@@ -31,6 +31,7 @@ var usersRouter = require('./routes/users');
 var subjectRouter = require('./routes/subjects')
 var classRouter = require('./routes/classes')
 var branchRouter = require('./routes/branches')
+var assignmentRouter =require('./routes/assignments')
 
 var app = express();
 app.use(cors())
@@ -47,5 +48,6 @@ app.use('/users', usersRouter);
 app.use('/subjects', subjectRouter)
 app.use('/classes', classRouter)
 app.use('/branches', branchRouter)
+app.use('/assignments', assignmentRouter)
 
 module.exports = app;
