@@ -4,6 +4,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
 const cors = require("cors");
+var dotenv = require("dotenv");
+
+dotenv.config();
 
 //mongoose
 var mongooseOptions = {
@@ -32,6 +35,7 @@ var subjectRouter = require('./routes/subjects')
 var classRouter = require('./routes/classes')
 var branchRouter = require('./routes/branches')
 var assignmentRouter =require('./routes/assignments')
+var authRouter = require('./routes/auth')
 
 var app = express();
 app.use(cors())
@@ -49,5 +53,6 @@ app.use('/subjects', subjectRouter)
 app.use('/classes', classRouter)
 app.use('/branches', branchRouter)
 app.use('/assignments', assignmentRouter)
+app.use('/auth', authRouter)
 
 module.exports = app;

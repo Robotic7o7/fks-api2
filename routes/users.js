@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require("bcrypt");
 
 const User = require('../models/user')
 
@@ -38,6 +39,7 @@ router.post("/new_student", async function (req, res) {
   const user = new User({
     name: req.body.name,
     admission_no: req.body.admission_no,
+    password: await bcrypt.hash(req.body.password, 10),
     profile_picture: req.body.profile_picture,
     date_of_birth: req.body.date_of_birth,
     gender: req.body.gender,
@@ -66,6 +68,7 @@ router.post("/new_parent", async function (req, res) {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
+    password: await bcrypt.hash(req.body.password, 10),
     phone_number: req.body.phone_number,
     job_industry: req.body.job_industry,
     job_description: req.body.job_description,
@@ -89,6 +92,7 @@ router.post("/new_teacher", async function (req, res) {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
+    password: await bcrypt.hash(req.body.password, 10),
     phone_number: req.body.phone_number,
     branch: req.body.branch,
     short_desc: req.body.short_desc,
@@ -109,6 +113,7 @@ router.post("/new_admin", async function (req, res) {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
+    password: await bcrypt.hash(req.body.password, 10),
     phone_number: req.body.phone_number,
     branch: req.body.branch,
     access:req.body.access,
@@ -131,7 +136,7 @@ router.patch("/:id/update", async function (req, res) {
       { _id: req.params.id },
       {
         $set: {
-          user_name: req.body.user_name
+          password: await bcrypt.hash(req.body.password, 10),
         }
       },
       { runValidators: true }

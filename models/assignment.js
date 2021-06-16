@@ -40,7 +40,8 @@ const assignmentSchema = mongoose.Schema({
     },
 
     question_type:{
-        type:ENUM["SA", "LA", "MCQ"]
+        type:String,
+        enum:["SA", "LA", "MCQ"]
     },
 
     options: [{
