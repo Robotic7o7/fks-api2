@@ -3,6 +3,8 @@ var router = express.Router();
 
 //import models
 const Assignment = require('../models/assignment')
+const StudentSubmittedAssignment = require('../models/student_submitted_assignment')
+
 
 
 //file upload
@@ -51,7 +53,8 @@ function generateFileName() {
 //add spare part img
 router.post('/:id/upload_img', upload.single('assignment_img'), async function (req, res) {
     try {
-
+        var student_id = req.body.student_id;
+        var assignment_id=req.params.id;
         const assignment = await Assignment.findById({ _id: req.params.id })
 
         var myFile = req.file.originalname.split('.')
@@ -63,6 +66,15 @@ router.post('/:id/upload_img', upload.single('assignment_img'), async function (
                 Body: req.file.buffer
             }
             const uploaded = await s3.upload(params).promise()
+
+            const submission = new StudentSubmittedAssignment({
+                student_id:student_id,
+                assignment_id:assignment_id,
+                fileURL: uploaded.key
+            });
+        
+        
+            const savedSubmission = await submission.save();
 
             res.status(200).json({ message: "success", images: uploaded.key, additional_info: "assignment image uploaded" })
 
