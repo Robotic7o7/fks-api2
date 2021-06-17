@@ -6,7 +6,7 @@ const Class = require('../models/class')
 //get all classes
 router.get('', async function (req, res, next) {
     try{
-        const classes= await Class.find({ "class_name": { "$regex": req.query.q, "$options": "i" }})
+        const classes= await Class.find({ "class_name": { "$regex": req.query.q, "$options": "i" }}).populate('teachers').populate('subjects')
         res.status(200).json(classes);
     } catch (err) {
         res.status(500).json({ error: err });
@@ -17,7 +17,8 @@ router.get('', async function (req, res, next) {
 router.post("/new", async function (req, res) {
     const class1 = new Class({
         class_name: req.body.class_name,
-        subjects: req.body.subjects
+        subjects: req.body.subjects,
+        teachers: req.body.teachers
     });
 
     try {
@@ -25,6 +26,7 @@ router.post("/new", async function (req, res) {
         res.status(200).json({ message: "success", additional_info: "class created" });
     }
     catch (err) {
+        console.log(err)
         res.status(500).json({ error: err });
     }
 });

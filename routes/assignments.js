@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const Assigment = require('../models/assignment')
+const Assignment = require('../models/assignment')
 
 //get all assignments
 router.get('', async function (req, res, next) {
@@ -15,6 +15,7 @@ router.get('', async function (req, res, next) {
 
 //new assignment
 router.post("/new", async function (req, res) {
+    console.log(req.body)
     const assignment = new Assignment({
         assignment_name: req.body.assignment_name,
         assignment_type:req.body.assignment_type,
@@ -23,9 +24,7 @@ router.post("/new", async function (req, res) {
         class_list:req.body.class_list,
         student_list:req.body.student_list ,
         subject:req.body.subject,
-        question:req.body.question,
-        question_type: req.body.question_type,
-        options:req.body.options
+        questions:req.body.questions
     });
 
     try {
@@ -34,6 +33,7 @@ router.post("/new", async function (req, res) {
     }
     catch (err) {
         res.status(500).json({ error: err });
+        console.log(err)
     }
 });
 

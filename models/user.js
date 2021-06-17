@@ -81,9 +81,9 @@ const userSchema = mongoose.Schema({
         type:String
     },
 
-    access:{
+    access:[{
         type:String
-    },
+    }],
 
     user_type:{
         type:String

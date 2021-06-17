@@ -20,29 +20,35 @@ const assignmentSchema = mongoose.Schema({
     },
 
     class_list: [{
-        class: {
-            type: mongoose.Schema.Types.ObjectId
-        }
-    }],
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Class"
+    }
+    ],
 
-    student_list: [{
-        user: {
-            type: mongoose.Schema.Types.ObjectId
+    student_list: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"User"
         }
-    }],
+    ],
 
     subject: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Subject"
     },
 
     questions: [
         {
-            question_text:{
-                type:String,
+            question_text: {
+                type: String,
             },
 
             question_type: {
                 type: String
+            },
+
+            marks:{
+                type:String
             },
 
             option1: {

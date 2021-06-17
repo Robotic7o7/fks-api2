@@ -5,11 +5,19 @@ const classSchema = mongoose.Schema({
         type: String
     },
 
-    subjects: [{
-        subject: {
-            type: mongoose.Schema.Types.ObjectId
+    subjects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Subject'
         }
-    }],
+    ],
+
+    teachers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }
+    ],
     
     disable: {
         type: Boolean,
