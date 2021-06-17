@@ -1,22 +1,22 @@
 const mongoose = require('mongoose')
 
 const assignmentSchema = mongoose.Schema({
-    
-    assignment_name:{
-        type:String
+
+    assignment_name: {
+        type: String
     },
 
-    assignment_type:{
-        type:String
+    assignment_type: {
+        type: String
     },
 
-    due_date:{
-        type:String
+    due_date: {
+        type: String
     },
 
-    is_graded:{
-        type:Boolean,
-        default:false
+    is_graded: {
+        type: Boolean,
+        default: false
     },
 
     class_list: [{
@@ -35,24 +35,34 @@ const assignmentSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId
     },
 
-    question:{
-        type:String
-    },
+    questions: [
+        {
+            question_text:{
+                type:String,
+            },
 
-    question_type:{
-        type:String,
-        enum:["SA", "LA", "MCQ"]
-    },
+            question_type: {
+                type: String
+            },
 
-    options: [{
-        option: {
-            type: String
+            option1: {
+                type: String
+            },
+            option2: {
+                type: String
+            },
+            option3: {
+                type: String
+            },
+            option4: {
+                type: String
+            }
         }
-    }],
+    ],
 
-    disable:{
-        type:Boolean,
-        default:false
+    disable: {
+        type: Boolean,
+        default: false
     }
 
 })
