@@ -13,6 +13,25 @@ router.get('', async function (req, res, next) {
     }
 });
 
+router.get("/:id", async function (req, res) {
+    try {
+        const assignment = await Assignment.findById(req.params.id);
+        res.status(200).json(assignment);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
+//assignment by subject ID
+router.get("/subject/:id", async function (req, res) {
+    try {
+        const assignment = await Assignment.findOne({ subject: req.params.id});
+        res.status(200).json(assignment);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
 //new assignment
 router.post("/new", async function (req, res) {
     console.log(req.body)

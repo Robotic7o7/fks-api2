@@ -34,6 +34,16 @@ router.get('/admins', async function (req, res, next) {
   }
 });
 
+//get by id
+router.get("/:id", async function (req, res) {
+  try {
+      const user = await User.findById(req.params.id);
+      res.status(200).json(user);
+  } catch (err) {
+      res.status(500).json({ error: err });
+  }
+});
+
 //new student
 router.post("/new_student", async function (req, res) {
   const user = new User({

@@ -64,14 +64,7 @@ router.post('/:id/upload_img', upload.single('assignment_img'), async function (
             }
             const uploaded = await s3.upload(params).promise()
 
-            const updatedSpare = await Spare.updateOne(
-                { _id: req.params.id },
-                {
-                    $push: { images: uploaded.key }
-                }
-            )
-
-            res.status(200).json({ message: "success", additional_info: "assignment image uploaded" })
+            res.status(200).json({ message: "success", images: uploaded.key, additional_info: "assignment image uploaded" })
 
     } catch (err) {
         res.status(500).json(err)
