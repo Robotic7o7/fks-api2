@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 //import models
-const Assignment = require('../models/assignments')
+const Assignment = require('../models/assignment')
 
 
 //file upload
