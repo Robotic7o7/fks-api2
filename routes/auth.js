@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verify-token");
 
 //models
-const user = require("../models/user");
+const User = require("../models/user");
 
 
 //user login
@@ -29,7 +29,7 @@ router.post("/user/login", async function (req, res) {
                     if (err) {
                         res.status(403).json(err);
                     } else {
-                        res.status(200).json({ token: token, userType: user.user_type ,username: user.name ,userInfo:user });
+                        res.status(200).json({ token: token, userType: user.user_type ,username: user.name ,user_id: user._id, userInfo:user });
                     }
                 }
             );

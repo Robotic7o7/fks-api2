@@ -1,0 +1,19 @@
+POST http://localhost:3000/users/new_teacher
+content-type: application/json
+
+{
+    "name": "",
+    "admission_no": "",
+    "password": "",
+    "profile_picture": "",
+    "date_of_birth": "",
+    "gender": "",
+    "blood_group": "",
+    "email": "",
+    "phone_number": "",
+    "class": "",
+    "branch": "",
+    "address": "",
+    "year_of_joining":"",
+    "class_of_joining": "",
+}
