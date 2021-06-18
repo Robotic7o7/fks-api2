@@ -37,6 +37,7 @@ var branchRouter = require('./routes/branches')
 var assignmentRouter =require('./routes/assignments')
 var authRouter = require('./routes/auth')
 var uploadRouter = require('./routes/upload')
+var postRouter = require('./routes/post')
 
 var app = express();
 app.use(cors())
@@ -56,5 +57,6 @@ app.use('/branches', branchRouter)
 app.use('/assignments', assignmentRouter)
 app.use('/auth', authRouter)
 app.use('/upload', uploadRouter);
+app.use('/posts', postRouter);
 
 module.exports = app;
