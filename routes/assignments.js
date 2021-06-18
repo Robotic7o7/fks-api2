@@ -3,6 +3,7 @@ var router = express.Router();
 
 const Assignment = require('../models/assignment')
 
+
 //get all assignments
 router.get('', async function (req, res, next) {
     try{
