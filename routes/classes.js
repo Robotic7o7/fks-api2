@@ -13,6 +13,16 @@ router.get('', async function (req, res, next) {
     }
 });
 
+//get subjects by class
+router.get('/:id/get_all_subjects', async function (req, res, next) {
+    try{
+        const class1= await Class.findById(req.params.id).populate('subjects')
+        res.status(200).json(class1.subjects);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
 //new class
 router.post("/new", async function (req, res) {
     const class1 = new Class({
