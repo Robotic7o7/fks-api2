@@ -62,6 +62,26 @@ router.patch("/:id/update", async function (req, res) {
     }
 });
 
+//update class Subjects
+router.patch("/:id/update_subject", async function (req, res) {
+    try {
+        updatedClass = await Class.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    subjects: req.body.subjects
+                }
+            },
+            { runValidators: true }
+        );
+
+        res.status(200).json({ message: "success", additional_info: "class updated" });
+    }
+    catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
 //disable class
 router.patch("/:id/disable", async function (req, res) {
     try {

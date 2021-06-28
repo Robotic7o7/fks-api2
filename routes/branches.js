@@ -13,6 +13,16 @@ router.get('', async function (req, res, next) {
     }
 });
 
+//get by id
+router.get("/:id", async function (req, res) {
+    try {
+        const branch = await Branch.findById(req.params.id);
+        res.status(200).json(branch);
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
 //new branch
 router.post("/new", async function (req, res) {
     const branch = new Branch({
