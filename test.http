@@ -1,10 +1,8 @@
-POST http://localhost:3000/users/new_admin
+POST http://localhost:3000/branches/new
 content-type: application/json
 
 {
-    "name": "Admin test ID 2",
-    "email": "admintest@test.com",
-    "password": "admin",
-    "phone_number": "7794939152",
-    "branch": "60c5f5f78a0d0ebcac0edf5c"
+    "branch_name": "testBranch",
+    "branch_code": "7007",
+    "address": "helloworld"
 }

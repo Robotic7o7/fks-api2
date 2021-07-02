@@ -49,28 +49,45 @@ function generateFileName() {
 }
 
 
-
-//add spare part img
-router.post('/:id/upload_img', upload.single('assignment_img'), async function (req, res) {
+router.post('/upload_assignment_img', upload.single('file'), async function (req, res) {
     try {
-        var student_id = req.body.student_id;
-        var assignment_id=req.params.id;
-        const assignment = await Assignment.findById({ _id: req.params.id })
-
-        var myFile = req.file.originalname.split('.')
-            const fileType = myFile[myFile.length - 1]
+        var uploadedFiles = req.file;
+        console.log(req.file);
+        var newfilename = uploadedFiles.originalname;
+        var buffer = uploadedFiles.buffer;
+        var myFile = newfilename.split('.')
+        const fileType = myFile[myFile.length - 1]
 
             const params = {
                 Bucket: process.env.AWS_BUCKET_NAME,
                 Key: `${generateFileName()}.${fileType}`,
-                Body: req.file.buffer
+                Body: buffer
             }
             const uploaded = await s3.upload(params).promise()
+
+            res.status(200).json({ message: "success", images: uploaded.key, uploadInfo: uploaded, additional_info: "assignment image uploaded" })
+
+
+    } catch (err) {
+        res.status(500).json(err)
+        console.log(err);
+    }
+})
+
+
+
+//add spare part img
+router.post('/:id/upload_img',async function (req, res) {
+    try {
+        var student_id = req.body.student_id;
+        var assignment_id=req.params.id;
+        var fileURL = req.body.fileURL
+        const assignment = await Assignment.findById({ _id: req.params.id })
 
             const submission = new StudentSubmittedAssignment({
                 student_id:student_id,
                 assignment_id:assignment_id,
-                fileURL: uploaded.key
+                fileURL: fileURL
             });
         
         
