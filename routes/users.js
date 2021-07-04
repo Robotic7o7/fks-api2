@@ -7,7 +7,7 @@ const User = require('../models/user')
 //get students
 router.get('/students', async function (req, res, next) {
   try {
-    const users = await User.find({ "name": { "$regex": req.query.q, "$options": "i" }, "user_type": "STUDENT" })
+    const users = await User.find({ "name": { "$regex": req.query.q, "$options": "i" }, "user_type": "STUDENT" }).populate('class').populate('branch')
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json({ error: err });
@@ -46,9 +46,10 @@ router.get("/:id", async function (req, res) {
 
 //new student
 router.post("/new_student", async function (req, res) {
+  console.log(req.body)
   const user = new User({
-    name: req.body.name,
-    admission_no: req.body.admission_no,
+    name: req.body.full_name,
+    admission_no: req.body.admission_number,
     password: await bcrypt.hash(req.body.password, 10),
     profile_picture: req.body.profile_picture,
     date_of_birth: req.body.date_of_birth,
@@ -56,11 +57,11 @@ router.post("/new_student", async function (req, res) {
     blood_group: req.body.blood_group,
     email: req.body.email,
     phone_number: req.body.phone_number,
-    class: req.body.class,
+    class: req.body.class_of_join,
     branch: req.body.branch,
     address: req.body.address,
-    year_of_joining: req.body.year_of_joining,
-    class_of_joining: req.body.class_of_joining,
+    year_of_joining: req.body.year_of_join,
+    class_of_joining: req.body.class_of_join,
     user_type: "STUDENT"
   });
 

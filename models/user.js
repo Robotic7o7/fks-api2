@@ -34,11 +34,13 @@ const userSchema = mongoose.Schema({
     },
     
     class:{
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Class'
     },
 
     branch:{
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Branch'
     },
     
     address:{
@@ -50,7 +52,8 @@ const userSchema = mongoose.Schema({
     },
 
     class_of_joining:{
-        type:String
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Class'
     },
 
     password: {
