@@ -14,6 +14,16 @@ router.get('/students', async function (req, res, next) {
   }
 });
 
+//get parents
+router.get('/parents', async function (req, res, next) {
+  try {
+    const users = await User.find({ "name": { "$regex": req.query.q, "$options": "i" }, "user_type": "PARENT" }).populate('student')
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 //get teachers
 router.get('/teachers', async function (req, res, next) {
   try {
@@ -67,7 +77,7 @@ router.post("/new_student", async function (req, res) {
 
   try {
     const savedUser = await user.save();
-    res.status(200).json({ message: "success", additional_info: "user created" });
+    res.status(200).json({ message: "success", additional_info: "user created", id:savedUser._id });
   }
   catch (err) {
     res.status(500).json({ error: err });
@@ -77,6 +87,7 @@ router.post("/new_student", async function (req, res) {
 //new parent
 router.post("/new_parent", async function (req, res) {
   const user = new User({
+    student: req.body.student_id,
     name: req.body.name,
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, 10),

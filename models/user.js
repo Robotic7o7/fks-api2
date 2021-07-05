@@ -1,95 +1,100 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-    name:{
-        type:String
-    },
-    
-    admission_number:{
-        type:String
+    name: {
+        type: String
     },
 
-    profile_picture:{
-        type:String
+    admission_number: {
+        type: String
     },
 
-    date_of_birth:{
-        type:String
+    profile_picture: {
+        type: String
     },
 
-    gender:{
-        type:String
+    date_of_birth: {
+        type: String
     },
 
-    blood_group:{
-        type:String
+    gender: {
+        type: String
     },
 
-    email:{
-        type:String
+    blood_group: {
+        type: String
     },
 
-    phone_number:{
-        type:String
+    email: {
+        type: String
     },
-    
-    class:{
+
+    phone_number: {
+        type: String
+    },
+
+    class: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Class'
+        ref: 'Class'
     },
 
-    branch:{
+    branch: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Branch'
-    },
-    
-    address:{
-        type:String
+        ref: 'Branch'
     },
 
-    year_of_joining:{
-        type:String
+    address: {
+        type: String
     },
 
-    class_of_joining:{
+    year_of_joining: {
+        type: String
+    },
+
+    class_of_joining: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Class'
+        ref: 'Class'
+    },
+
+    student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
 
     password: {
         type: String,
     },
 
-    job_industry:{
-        type:String
-    },
-    
-    job_description:{
-        type:String
+    job_industry: {
+        type: String
     },
 
-    office_address:{
-        type:String
+    job_description: {
+        type: String
     },
 
-    office_phone_number:{
-        type:String
+    office_address: {
+        type: String
     },
 
-    relationship:{
-        type:String
+    office_phone_number: {
+        type: String
     },
 
-    short_desc:{
-        type:String
+    relationship: {
+        type: String
     },
 
-    access:[{
-        type:String
+    short_desc: {
+        type: String
+    },
+
+    access: [{
+        type: String
     }],
 
-    user_type:{
-        type:String
+    user_type: {
+        type: String
     }
 
 })

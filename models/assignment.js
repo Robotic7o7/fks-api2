@@ -6,6 +6,10 @@ const assignmentSchema = mongoose.Schema({
         type: String
     },
 
+    file:{
+        type:String
+    },
+
     assignment_type: {
         type: String
     },
