@@ -30,7 +30,7 @@ var upload = multer({
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ID,
-    secretAccessKey: process.env.AWS_SECRET
+    secretAccessKey: process.env.AWS_SECRET,
 })
 
 
@@ -75,21 +75,7 @@ router.get("/subject/:id", async function (req, res) {
 });
 
 //new assignment
-router.post("/new", upload.single('file'), async function (req, res) {
-    var uploadedFiles = req.file;
-    console.log(req.file);
-    var newfilename = uploadedFiles.originalname;
-    var buffer = uploadedFiles.buffer;
-    var myFile = newfilename.split('.')
-    const fileType = myFile[myFile.length - 1]
-
-    const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${generateFileName()}.${fileType}`,
-        Body: buffer
-    }
-    const uploaded = await s3.upload(params).promise()
-
+router.post("/new", async function (req, res) {
     const assignment = new Assignment({
         assignment_name: req.body.assignment_name,
         assignment_type: req.body.assignment_type,
@@ -99,7 +85,7 @@ router.post("/new", upload.single('file'), async function (req, res) {
         student_list: req.body.student_list,
         subject: req.body.subject,
         questions: req.body.questions,
-        file: uploaded.key
+        file: req.body.fileURL
     });
 
     try {
@@ -111,6 +97,33 @@ router.post("/new", upload.single('file'), async function (req, res) {
         console.log(err)
     }
 });
+
+
+
+router.post('/upload_assignment_img', upload.single('file'), async function (req, res) {
+    try {
+        var uploadedFiles = req.file;
+        console.log(req.file);
+        var newfilename = uploadedFiles.originalname;
+        var buffer = uploadedFiles.buffer;
+        var myFile = newfilename.split('.')
+        const fileType = myFile[myFile.length - 1]
+
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `${generateFileName()}.${fileType}`,
+                Body: buffer
+            }
+            const uploaded = await s3.upload(params).promise()
+
+            res.status(200).json({ message: "success", images: uploaded.key, uploadInfo: uploaded, additional_info: "assignment image uploaded" })
+
+
+    } catch (err) {
+        res.status(500).json(err)
+        console.log(err);
+    }
+})
 
 //update assignment
 router.patch("/:id/update", async function (req, res) {
